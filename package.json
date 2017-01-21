@@ -1,0 +1,19 @@
+{
+  "name": "mood",
+  "version": "1.0.0",
+  "description": "Projet deuxieme annee",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "chart.js": "^2.4.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "mongojs": "^2.4.0",
+    "ng2-charts": "^1.5.0"
+  }
+}

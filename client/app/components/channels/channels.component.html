@@ -1,0 +1,13 @@
+<br>
+<div class="container ">
+    <h1>Team mood</h1>
+    <p class="text-muted">Create or join groups!</p>
+    <br>
+    <div class="row justify-content-center">
+        <div class="form-group col-md-6">
+            <form (submit)="checkChannel($event)">
+                <input type="text" class="form-control" placeholder="Group name here" [(ngModel)]="title" name="title">
+            </form>
+        </div>
+    </div>
+</div>

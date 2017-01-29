@@ -23,7 +23,7 @@ var ChannelsComponent = (function () {
     // e : title
     ChannelsComponent.prototype.addChannel = function (e) {
         var _this = this;
-        console.log('Adding channel ' + e);
+        //console.log('Adding channel ' + e);
         var that = this;
         var newChannel = {
             title: e,
@@ -37,7 +37,7 @@ var ChannelsComponent = (function () {
     // channelId, userId
     ChannelsComponent.prototype.joinChannel = function (cId, uId) {
         var _this = this;
-        console.log('Joining channel ' + cId + ' as ' + uId);
+        //console.log('Joining channel ' + cId + ' as ' + uId);
         var data = {
             channelId: cId,
             userId: uId
@@ -50,23 +50,13 @@ var ChannelsComponent = (function () {
     ChannelsComponent.prototype.checkChannel = function (event) {
         var _this = this;
         event.preventDefault();
-        var t = this.title;
-        var res = 0;
-        var channelId;
         this.channelsService.getChannels().subscribe(function (channels) {
-            console.log(channels);
-            _this.channels = channels;
-            _this.channels.forEach(function (e) {
-                if (e.title == t) {
-                    res = 1;
-                    channelId = e._id;
-                }
-            });
-            if (res == 1) {
-                _this.joinChannel(channelId, _this.fingerprintId);
+            var chan = channels.filter(function (x) { return x.title == _this.title; }); //Filter results
+            if (chan.length > 0 && chan.title == _this.title) {
+                _this.joinChannel(chan._id, _this.fingerprintId);
             }
             else {
-                _this.addChannel(t);
+                _this.addChannel(_this.title);
             }
         });
     };

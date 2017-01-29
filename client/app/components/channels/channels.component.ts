@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChannelsService } from '../../services/channels.service';
-import { Channel } from '../../custom_class/Channel';
 
 declare var Fingerprint2: any;
 
@@ -12,7 +11,6 @@ declare var Fingerprint2: any;
     styleUrls: ['channels.component.css']
 })
 export class ChannelsComponent {
-    channels: Channel[];
     title: string;
     fingerprintId: string;
 
@@ -25,7 +23,7 @@ export class ChannelsComponent {
 
     // e : title
     addChannel(e: string) {
-        console.log('Adding channel ' + e);
+        //console.log('Adding channel ' + e);
         var that = this;
         var newChannel = {
             title: e,
@@ -40,7 +38,7 @@ export class ChannelsComponent {
 
     // channelId, userId
     joinChannel(cId: string, uId: string) {
-        console.log('Joining channel ' + cId + ' as ' + uId);
+        //console.log('Joining channel ' + cId + ' as ' + uId);
         var data = {
             channelId: cId,
             userId: uId
@@ -54,24 +52,12 @@ export class ChannelsComponent {
     // Enter event on html input
     checkChannel(event) {
         event.preventDefault();
-
-        let t = this.title;
-        let res = 0;
-        let channelId: string;
-
-        this.channelsService.getChannels().subscribe(channels => {
-            console.log(channels);
-            this.channels = channels;
-            this.channels.forEach(function (e) {
-                if (e.title == t) {
-                    res = 1;
-                    channelId = e._id;
-                }
-            });
-            if (res == 1) {
-                this.joinChannel(channelId, this.fingerprintId);
+        this.channelsService.getChannels().subscribe(channels => { //Get all channels
+            let chan = channels.filter(x => x.title == this.title); //Filter results
+            if(chan.length > 0 && chan.title == this.title){ //Join if it exists
+                this.joinChannel(chan._id, this.fingerprintId);
             } else {
-                this.addChannel(t);
+                this.addChannel(this.title);
             }
         });
     }

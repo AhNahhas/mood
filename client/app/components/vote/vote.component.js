@@ -20,7 +20,7 @@ var VoteComponent = (function () {
         this.votesService = votesService;
         this.channelsService = channelsService;
         this.voted = true;
-        console.log('Vote constructor');
+        //console.log('Vote constructor');
         this.channelId = route.snapshot.params['id'];
         this.verifyChannel(this.channelId);
         var that = this;
@@ -30,7 +30,7 @@ var VoteComponent = (function () {
     }
     VoteComponent.prototype.vote = function (i) {
         var _this = this;
-        console.log('Adding vote: ' + i);
+        //console.log('Adding vote: ' + i);
         var newVote = {
             channelId: this.channelId,
             userId: this.fingerprintId,
@@ -52,18 +52,12 @@ var VoteComponent = (function () {
             }
             else {
                 _this.channelTitle = data.title;
-                //console.log(this.dateFromObjectId(data._id));
-                console.log('Valid channelId!');
             }
         }, function (error) {
             //console.log(error);
             _this.errorId();
         });
     };
-    VoteComponent.prototype.dateFromObjectId = function (objectId) {
-        return new Date(parseInt(objectId.substring(0, 8), 16) * 1000);
-    };
-    ;
     // Bad channelId
     VoteComponent.prototype.errorId = function () {
         console.log('Error with channelId');

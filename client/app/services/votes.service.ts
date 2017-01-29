@@ -16,4 +16,9 @@ export class VotesService {
         return this.http.post('/api/vote', JSON.stringify(newVote), { headers: headers }).map(res => res.json());
     }
 
+    getVotes(channelId) {
+        return this.http.get('/api/votes/' + channelId).map(res => res.json());
+    }
+
+
 }

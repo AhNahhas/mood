@@ -106,4 +106,20 @@ router.post('/vote', function (req, res, next) {
 
 });
 
+
+
+//get all votes of a specified channel
+
+router.get('/votes/:idchannel', function(req, res, next){
+    db2.votes.find({ channelId : req.params.idchannel }, function(err, votes){
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.json(votes);
+        }
+    });
+});
+
+
 module.exports = router;

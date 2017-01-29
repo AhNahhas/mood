@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="col-md-1">
+        <chart [options]="data"></chart>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-5">
+        <div class="row">
+            <h1>L'humeur moyenne du groupe :</h1>
+        </div>
+        <div class="row" class="col-md-6">
+            <div class="jumbotron">
+                <h1 class="display-3"> {{image}} </h1>
+            </div>
+        </div>
+        <div class="row" class="col-md-6">
+            <button class="jumbotron" (click)="addDataDaily(route.snapshot.params['id'])"> <h3 class="display-3"> Voir résultat quotidien </h3> </button></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+        <div class="row" class="col-md-6">
+            <button class="jumbotron" (click)="addDataGlobal(route.snapshot.params['id'])"> <h3 class="display-3"> Voir résultat global </h3> </button>
+        </div>
+
+    </div>
+</div>

@@ -22,6 +22,9 @@ var VotesService = (function () {
         headers.append('Content-Type', 'application/json');
         return this.http.post('/api/vote', JSON.stringify(newVote), { headers: headers }).map(function (res) { return res.json(); });
     };
+    VotesService.prototype.getVotes = function (channelId) {
+        return this.http.get('/api/votes/' + channelId).map(function (res) { return res.json(); });
+    };
     return VotesService;
 }());
 VotesService = __decorate([

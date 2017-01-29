@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angular2-highcharts": "^0.4.1",
     "body-parser": "^1.15.2",
     "chart.js": "^2.4.0",
     "ejs": "^2.5.5",

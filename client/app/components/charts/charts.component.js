@@ -17,7 +17,6 @@ var ChartsComponent = (function () {
         this.route = route;
         this.votesService = votesService;
         this.channelsService = channelsService;
-        this.votes = [];
         console.log('constructor chart');
         this.addDataGlobal(route.snapshot.params['id']);
     }
@@ -127,8 +126,9 @@ var ChartsComponent = (function () {
 }());
 ChartsComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'simple-chart-example',
-        template: "\n        <div class=\"container\">\n            <div class=\"col-md-1\">\n                <chart [options]=\"data\"></chart>\n            </div>\n            <div class=\"col-md-2\"></div>\n            <div class=\"col-md-2\"></div>\n            <div class=\"col-md-2\"></div>\n            <div class=\"col-md-5\">   \n                <div class=\"row\">\n                    <h1>L'humeur moyenne du groupe :</h1>\n                </div>\n                <div class=\"row\" class=\"col-md-6\">\n                    <div class=\"jumbotron\" > <h1 class=\"display-3\"> {{image}} </h1></div>\n                </div>\n                <div class=\"row\" class=\"col-md-6\">\n                    <button class=\"jumbotron\" (click)=\"addDataDaily(route.snapshot.params['id'])\" > <h3 class=\"display-3\"> Voir r\u00E9sultat quotidien </h3> </button></div>\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-md-2\"></div>\n                <div class=\"col-md-2\"></div>\n                <div class=\"col-md-2\"></div>\n                <div class=\"col-md-1\"></div>\n                <div class=\"col-md-5\">   \n                    <div class=\"row\" class=\"col-md-6\">\n                        <button class=\"jumbotron\" (click)=\"addDataGlobal(route.snapshot.params['id'])\" > <h3 class=\"display-3\"> Voir r\u00E9sultat global </h3> </button>\n                    </div>\n                    \n                </div>\n            </div> \n    "
+        templateUrl: 'charts.component.html'
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute, votes_service_1.VotesService, channels_service_1.ChannelsService])
 ], ChartsComponent);

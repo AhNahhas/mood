@@ -12,10 +12,13 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var app_component_1 = require("./app.component");
 var channels_component_1 = require("./components/channels/channels.component");
+var charts_component_1 = require("./components/charts/charts.component");
 var vote_component_1 = require("./components/vote/vote.component");
 var pageNotFound_component_1 = require("./components/pageNotFound/pageNotFound.component");
+var angular2_highcharts_1 = require("angular2-highcharts");
 var appRoutes = [
     { path: '', component: channels_component_1.ChannelsComponent },
+    { path: 'chart/:id', component: charts_component_1.ChartsComponent },
     { path: 'v/:id', component: vote_component_1.VoteComponent },
     { path: '**', component: pageNotFound_component_1.PageNotFoundComponent }
 ];
@@ -26,8 +29,8 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule, router_1.RouterModule.forRoot(appRoutes)],
-        declarations: [app_component_1.AppComponent, channels_component_1.ChannelsComponent, vote_component_1.VoteComponent, pageNotFound_component_1.PageNotFoundComponent],
+        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule, router_1.RouterModule.forRoot(appRoutes), angular2_highcharts_1.ChartModule],
+        declarations: [app_component_1.AppComponent, channels_component_1.ChannelsComponent, vote_component_1.VoteComponent, pageNotFound_component_1.PageNotFoundComponent, charts_component_1.ChartsComponent],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

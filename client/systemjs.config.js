@@ -24,6 +24,10 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
+      
+      
+      'angular2-highcharts':        'https://cdn.rawgit.com/gevgeny/angular2-highcharts/v0.3.0/dist', 
+      'highcharts/highstock.src':   'https://cdn.rawgit.com/highcharts/highcharts-dist/v4.2.1/highstock.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

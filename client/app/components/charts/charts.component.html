@@ -1,32 +1,101 @@
-<div class="container">
-    <div class="col-md-1">
-        <chart [options]="data"></chart>
+<div class="container wrapper">
+    <br>
+    <div class="row">
+        <h3>Analytics - <b>{{channelTitle}}</b></h3>
     </div>
-    <div class="col-md-2"></div>
-    <div class="col-md-2"></div>
-    <div class="col-md-2"></div>
-    <div class="col-md-5">
-        <div class="row">
-            <h1>L'humeur moyenne du groupe :</h1>
-        </div>
-        <div class="row" class="col-md-6">
-            <div class="jumbotron">
-                <h1 class="display-3"> {{image}} </h1>
+    <div class="row">
+        From {{timeStart | date:'longDate'}} to {{timeEnd | date:'longDate'}}
+    </div>
+    <hr>
+    <div class="row justify-content-md-center" *ngIf="period != 'global'">
+        <div class="col-md-4">
+            <div class="card mood-card-{{getAverageScore_Rounded(voteList)}}">
+                <div class="card-header">
+                    Average
+                </div>
+                <div class="card-block" [ngSwitch]="getAverageScore_Rounded(voteList)">
+                    <h4 class="card-title">{{getSmiley(getAverageScore_Rounded(voteList))}} - {{getAverageScore(voteList)}}</h4>
+                    <p class="card-text" *ngSwitchCase="1">The mood is TERRIBLE!</p>
+                    <p class="card-text" *ngSwitchCase="2">It can be better.</p>
+                    <p class="card-text" *ngSwitchCase="3">It's fine.</p>
+                    <p class="card-text" *ngSwitchCase="4">Mood is good.</p>
+                    <p class="card-text" *ngSwitchCase="5">Everything is perfect!</p>
+                </div>
             </div>
         </div>
-        <div class="row" class="col-md-6">
-            <button class="jumbotron" (click)="addDataDaily(route.snapshot.params['id'])"> <h3 class="display-3"> Voir résultat quotidien </h3> </button></div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-2"></div>
-    <div class="col-md-2"></div>
-    <div class="col-md-1"></div>
-    <div class="col-md-5">
-        <div class="row" class="col-md-6">
-            <button class="jumbotron" (click)="addDataGlobal(route.snapshot.params['id'])"> <h3 class="display-3"> Voir résultat global </h3> </button>
+        <div class="col-md-4">
+            <div class="card mood-card-{{getBestAverageScore_Rounded(voteList)}}">
+                <div class="card-header">
+                    Best
+                </div>
+                <div class="card-block">
+                    <h4 class="card-title">{{getSmiley(getBestAverageScore_Rounded(voteList))}} - {{getBestAverageScore(voteList)}}</h4>
+                    <p class="card-text">Most recent: {{getMostRecentMood(voteList, getBestAverageScore(voteList)) | date:'fullDate' }}</p>
+                </div>
+            </div>
         </div>
-
+        <div class="col-md-4">
+            <div class="card mood-card-{{getWorstAverageScore_Rounded(voteList)}}">
+                <div class="card-header">
+                    Worst
+                </div>
+                <div class="card-block">
+                    <h4 class="card-title">{{getSmiley(getWorstAverageScore_Rounded(voteList))}} - {{getWorstAverageScore(voteList)}}</h4>
+                    <p class="card-text">Most recent: {{getMostRecentMood(voteList, getWorstAverageScore(voteList)) | date:'fullDate' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="row justify-content-md-center">
+        <div class="col-md-7">
+            <chart [options]="options"></chart>
+        </div>
+    </div>-->
+    <hr>
+    <div class="row form-inline">
+        <label class="mr-sm-2" for="inlineFormCustomSelect">Period: </label>
+        <select id="inlineFormCustomSelect" class="mb-2 mr-sm-2 mb-sm-0 custom-select form-control form-control-sm" (change)="periodOnChange($event.target.value)">
+                    <option value="global">Global</option>
+                    <option value="day">Day</option>
+                    <option value="week">Week</option>
+                    <option value="month">Month</option>
+                </select>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row" *ngFor="let item of voteList; let i = index;">
+            <div class="col-sm-10 offset-md-1">
+                <div class="card mood-card-{{getAverageScore([item]) | number : '1.0-0'}}">
+                    <div class="card-block">
+                        <h4 class="card-title">{{item.date | date:'fullDate'}}</h4>
+                        <h6 class="card-subtitle mb-2 text-muted" *ngIf="period != 'global'">{{period}} {{voteList.length-i}}</h6>
+                        <div class="card-text">
+                            <p>Total votes: <b>{{getVoteCount(item.votes)}}</b>, Average: <b>{{getAverageScore([item])}}</b></p>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-2" *ngFor="let i of [1,2,3,4,5]" [ngClass]="{ 'min' : (item.votes[0] == 0 || item.votes[i].length < item.votes[0]) }">
+                                    <div class="mood mood-{{i}}">
+                                        <h5 class="display-4">{{getSmiley(i)}}</h5>
+                                        <br>
+                                        <p>
+                                            {{item.votes[i].length}} ({{getVotePercentage(item.votes, i)}}%)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <a href="javascript:void(0)" class="card-link" *ngIf="item.comments.length > 0" (click)="showComment(i)">
+                        See comments ({{item.comments.length}})
+                    </a>
+                    </div>
+                    <ul class="list-group list-group-flush" [style.display]="commentList[i] ? 'block'  : 'none'">
+                        <li class="list-group-item" *ngFor="let c of item.comments.reverse()">
+                            {{c.message}}
+                        </li>
+                    </ul>
+                </div>
+                <br>
+            </div>
+        </div>
     </div>
 </div>

@@ -47,7 +47,7 @@ router.post('/channel', function (req, res, next) {
 });
 
 // Add a user to channel
-router.put('/channel/', function (req, res, next) {
+router.put('/channel/', function (req, res, next) { //PATCH pour être plus propre
     if (!req.body) {
         res.status(400);
         res.json({

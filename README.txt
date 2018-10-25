@@ -1,3 +1,5 @@
+ROTI (Return on time invested) MEAN application.
+
 SETUP GUIDE
 
 //Nodejs
